@@ -45,13 +45,35 @@ public class ClienteDAO{
                 }
                 modelo.addRow(fila);
             }
-            
+            rs.close();
+            objConexion.desconectar();
             return modelo;       
         } catch (Exception e) {
             return null;
         }
     }
     
+    
+    public int ObtenerCorrelativo() {
+        int auxCorrelativo=0;
+        Connection con=objConexion.conectar();
+        String sql="select max(idCliente)+1 from cliente;";
+        DefaultTableModel modelo=new DefaultTableModel();
+        try {
+            Statement stm= con.createStatement();
+            try (ResultSet rs = stm.executeQuery(sql)) {
+                while(rs.next()){
+                    auxCorrelativo=Integer.parseInt(rs.getObject(1).toString());
+                }
+            }
+            objConexion.desconectar();
+            return auxCorrelativo;       
+        } catch (Exception e) {
+            return 0;
+        }
+        
+    }
+        
     public boolean InsertCliente(Cliente objCliente,Usuario objUser){
         String parametros="('"+objCliente.getTipodocumento()+"','"+
                objCliente.getNumeroDocumento()+"','"+
@@ -151,5 +173,7 @@ public class ClienteDAO{
         }
         
     }
+
+
     
 }

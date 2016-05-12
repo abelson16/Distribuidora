@@ -30,9 +30,8 @@ public class ControladorCliente {
         vistaPrincipal.pnPrincipal.add(vista);
         vista.show();
     }
-    public void nuevoCliente() {
-        this.modelo.ObtenerCorrelativo();
- 
+    public int nuevoCliente() {
+        return this.modelo.ObtenerCorrelativo();
     }
 
     public void AgregarCliente() {

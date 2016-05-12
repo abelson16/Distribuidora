@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.vo.Cliente;
+import org.apache.commons.beanutils.Converter;
 
 /**
  *
@@ -371,21 +372,12 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
 
     private void btAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarClienteActionPerformed
         Cliente auxcliente=new Cliente();
-        auxcliente.seti
-                
-                
-                
-                Integer.valueOf((String) vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 0)),
-                   String.valueOf(vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 3)),
-                   String.valueOf( vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 2)),
-                   String.valueOf(vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 4))
-           this.model.objComprobante.setObjCliente(auxcliente);
-           vtnMostrarClientes.dispose();
-           
-           vtnFacturacion.tfNumeroDocumento.setText(model.objComprobante.getObjCliente().getNumeroDocumento());
-           vtnFacturacion.tfNombreCliente.setText(model.objComprobante.getObjCliente().getNombres());
-           vtnFacturacion.tfDireccionCliente.setText(model.objComprobante.getObjCliente().getDireccion());
-        this.controler.AgregarCliente();
+        auxcliente.setIdcliente(Integer.parseInt(tfIdCliente.getText()));
+        auxcliente.setTipodocumento(cbTipoDocumento.getSelectedItem().toString());
+        auxcliente.setNumeroDocumento(tfNumeroDocumento.getText());
+        auxcliente.setNombres(tfNombres.getText());
+        auxcliente.setApellidoPaterno(tfApellidoPaterno.getText());
+        
     }//GEN-LAST:event_btAgregarClienteActionPerformed
 
     private void tfBuscarClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarClienteKeyTyped
@@ -406,7 +398,15 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btEditarClienteActionPerformed
 
     private void btNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoClienteActionPerformed
-        this.controler.nuevoCliente();
+        int idCliente= this.controler.nuevoCliente();
+        if (idCliente>0) {
+            this.tfIdCliente.setText(String.valueOf(idCliente));
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Error en generar el id del cliente");
+        }
+        
     }//GEN-LAST:event_btNuevoClienteActionPerformed
     
     public void setControler(ControladorCliente controler){
