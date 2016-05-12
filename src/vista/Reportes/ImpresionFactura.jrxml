@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpresionFactura" language="groovy" pageWidth="595" pageHeight="400" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4188dd36-0f50-4b58-9107-5200ce055e4d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Detalle" uuid="19782a90-5ada-447c-b806-f8d183c169ca">
+		<parameter name="detComprobante" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[7]]></defaultValueExpression>
+		</parameter>
+		<parameter name="detSerie" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+		</parameter>
+		<parameter name="detTipo" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select Cantidad,producto.Nombre,producto.Presentacion,producto.Envase,producto.Medida,producto.UnidadMedida,Precio,SubTotal
+from comprobantedetalle
+inner join producto on producto.CodigoProducto=comprobantedetalle.Producto_CodigoProducto
+where Comprobante_idComprobante=$P{detComprobante} and Comprobante_idSerieComprobante=$P{detSerie} and Comprobante_idTipoComprobante=$P{detTipo};]]>
+		</queryString>
+		<field name="Cantidad" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Nombre" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Presentacion" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Envase" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Medida" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="UnidadMedida" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Precio" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="SubTotal" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="comprobante" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[7]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<parameter name="serie" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cliente.NombreCompleto,cliente.Direccion, idComprobante,idSerieComprobante,idTipoComprobante,FechaEmision,Precio,IGV,MontoTotal
+from comprobante
+inner join cliente on cliente.idCliente=comprobante.Cliente_idCliente
+where idcomprobante=$P{comprobante} and idSerieComprobante=$P{serie} and idTipoComprobante=$P{tipo};]]>
+	</queryString>
+	<field name="NombreCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idComprobante" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idSerieComprobante" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idTipoComprobante" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaEmision" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Precio" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IGV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="78" splitType="Stretch">
+			<textField>
+				<reportElement x="41" y="8" width="196" height="20" uuid="1573b9dc-8bac-4b7c-98ec-888c58574297"/>
+				<textFieldExpression><![CDATA[$F{NombreCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="40" width="196" height="20" uuid="ec05a7a9-5842-4647-9649-eb5277fa0c9f"/>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="28" width="43" height="20" uuid="20171a52-c56e-4ea1-a15c-cc3261fbb0ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{idSerieComprobante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="445" y="28" width="10" height="20" uuid="b3c3d681-47a2-48fc-ba4a-5656527e66be"/>
+				<text><![CDATA[ - ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="28" width="53" height="20" uuid="da8926f9-c2d2-43b4-9bb8-4e462143517b"/>
+				<textFieldExpression><![CDATA[$F{idComprobante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="28" width="100" height="20" uuid="c51345ea-092f-4d22-8096-ecef02965cfc"/>
+				<textFieldExpression><![CDATA[$F{FechaEmision}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Immediate">
+			<componentElement>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="555" height="21" uuid="f628dc5f-22e5-4bd2-8eb0-03a20244286f"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Horizontal">
+					<datasetRun subDataset="Detalle" uuid="0441731d-616d-4908-990e-0570f962420d">
+						<datasetParameter name="detComprobante">
+							<datasetParameterExpression><![CDATA[$P{comprobante}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="detSerie">
+							<datasetParameterExpression><![CDATA[$P{serie}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="detTipo">
+							<datasetParameterExpression><![CDATA[$P{tipo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="21" width="555">
+						<textField>
+							<reportElement x="41" y="0" width="33" height="20" uuid="2e674baf-58da-4a5e-bb28-5b7b8188f9c0"/>
+							<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="74" y="0" width="307" height="20" uuid="122f86f9-f207-4353-a669-cfbd02625814"/>
+							<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="381" y="0" width="74" height="20" uuid="715fd166-c02e-47f1-977e-4450646c05ef"/>
+							<textFieldExpression><![CDATA[$F{Precio}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="455" y="0" width="79" height="20" uuid="546fe5f2-c1dd-4706-8cc9-92df94a64702"/>
+							<textFieldExpression><![CDATA[$F{SubTotal}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="77" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="10" width="79" height="20" uuid="e3138bf7-2158-4345-85f6-614359a5dd3d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{Precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="30" width="79" height="20" uuid="1ccab080-94a6-4c36-bad6-fec15e9890b5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{IGV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="50" width="79" height="20" uuid="63345365-207a-4aae-9344-435f8101a47b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{MontoTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
