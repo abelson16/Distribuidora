@@ -54,5 +54,9 @@ public class ControladorCliente {
         
     }
 
+    public Cliente BuscarClientePorId(int id) {
+        
+    }
+
     
 }

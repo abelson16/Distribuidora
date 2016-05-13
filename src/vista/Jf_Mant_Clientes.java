@@ -378,6 +378,7 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
         auxcliente.setNombres(tfNombres.getText());
         auxcliente.setApellidoPaterno(tfApellidoPaterno.getText());
         auxcliente.setApellidoMaterno(tfApellidoMaterno.getText());
+        auxcliente.setNombreCompleto();
         auxcliente.setDireccion(tfDireccion.getText());
         auxcliente.setTelefono(tfTelefono.getText());
         if (this.controler.AgregarCliente(auxcliente)){

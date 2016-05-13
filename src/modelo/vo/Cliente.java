@@ -51,8 +51,8 @@ public class Cliente {
         return nombreCompleto;
     }
 
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public void setNombreCompleto() {
+        this.nombreCompleto = this.apellidoMaterno+ ' '+this.apellidoMaterno+ ' '+this.nombres;
     }
 
     public String getNombres() {
