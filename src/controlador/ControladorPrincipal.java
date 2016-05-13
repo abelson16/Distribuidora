@@ -33,6 +33,7 @@ public class ControladorPrincipal {
         ClienteDAO objmodelo=new ClienteDAO();
         ControladorCliente controlador=new ControladorCliente(objvista, objmodelo);
         objvista.setControler(controlador);
+        controlador.setObjUsuario(objUsario);
         controlador.CargarClientes(vista);
         
     }

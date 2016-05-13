@@ -5,7 +5,10 @@
  */
 package controlador;
 
+import javax.swing.table.TableModel;
 import modelo.dao.ClienteDAO;
+import modelo.vo.Cliente;
+import modelo.vo.Usuario;
 import vista.Jf_Mant_Clientes;
 import vista.Principal;
 
@@ -16,6 +19,15 @@ import vista.Principal;
 public class ControladorCliente {
     private Jf_Mant_Clientes vista;
     private ClienteDAO modelo;
+    private Usuario objUsuario;
+
+    public Usuario getObjUsuario() {
+        return objUsuario;
+    }
+
+    public void setObjUsuario(Usuario objUsuario) {
+        this.objUsuario = objUsuario;
+    }
     
     public ControladorCliente(Jf_Mant_Clientes view,ClienteDAO model){
         this.vista=view;
@@ -33,9 +45,13 @@ public class ControladorCliente {
     public int nuevoCliente() {
         return this.modelo.ObtenerCorrelativo();
     }
+    public void listarClientes(){
+        vista.tbClientes.setModel(modelo.listarClientes());
+    }
 
-    public void AgregarCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean AgregarCliente(Cliente pCliente) {
+        return this.modelo.InsertCliente(pCliente,this.objUsuario);
+        
     }
 
     

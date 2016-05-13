@@ -377,7 +377,16 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
         auxcliente.setNumeroDocumento(tfNumeroDocumento.getText());
         auxcliente.setNombres(tfNombres.getText());
         auxcliente.setApellidoPaterno(tfApellidoPaterno.getText());
-        
+        auxcliente.setApellidoMaterno(tfApellidoMaterno.getText());
+        auxcliente.setDireccion(tfDireccion.getText());
+        auxcliente.setTelefono(tfTelefono.getText());
+        if (this.controler.AgregarCliente(auxcliente)){
+            JOptionPane.showMessageDialog(rootPane, "Se agrego correctamente el cliente");
+            this.controler.listarClientes();
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Error al registrar el cliente");
+        }
     }//GEN-LAST:event_btAgregarClienteActionPerformed
 
     private void tfBuscarClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarClienteKeyTyped

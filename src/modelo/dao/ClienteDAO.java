@@ -85,11 +85,12 @@ public class ClienteDAO{
                objCliente.getTelefono()+"',"+
                objUser.getId()+");";
         try {
-            Connection con=new Conexion().getConnection();
-            System.out.println("SPInsert:  call InsertCliente"+parametros);
+            Connection con=new Conexion().conectar();
             CallableStatement cs = con.prepareCall("call InsertCliente"+parametros);
             cs.executeQuery();
             
+            cs.close();
+            objConexion.desconectar();
             return true;           
         } catch (Exception e) {
             System.out.println(e.toString());
