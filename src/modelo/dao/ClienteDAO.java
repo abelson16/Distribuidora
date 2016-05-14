@@ -85,22 +85,43 @@ public class ClienteDAO{
                objCliente.getTelefono()+"',"+
                objUser.getId()+");";
         try {
-            Connection con=new Conexion().conectar();
-            CallableStatement cs = con.prepareCall("call InsertCliente"+parametros);
-            cs.executeQuery();
-            
-            cs.close();
+            Connection con=objConexion.conectar();
+            try (CallableStatement cs = con.prepareCall("call InsertCliente"+parametros)) {
+                cs.executeQuery();
+            }
             objConexion.desconectar();
             return true;           
         } catch (Exception e) {
             System.out.println(e.toString());
             return false;
         }
-        
     }
     
+     public Cliente buscarClientebyId(int id){
+        Connection con=objConexion.conectar();
+        String sql="select * from cliente where idcliente="+id;
+        try{
+        Statement stm= con.createStatement();
+        ResultSet rs=stm.executeQuery(sql);
+        rs.next();
+        Cliente auxCliente=new Cliente();
+        auxCliente.setIdcliente(Integer.parseInt(rs.getObject("idcliente").toString()));
+        auxCliente.setTipodocumento(rs.getObject("TipoDocumento").toString());
+        auxCliente.setNumeroDocumento(rs.getObject("NumeroDocumento").toString());
+        auxCliente.setNombres(rs.getObject("Nombres").toString());
+        auxCliente.setApellidoPaterno(rs.getObject("ApellidoPaterno").toString());
+        auxCliente.setApellidoMaterno(rs.getObject("ApellidoMaterno").toString());
+        auxCliente.setNombreCompleto();
+        auxCliente.setDireccion(rs.getObject("Direccion").toString());
+        auxCliente.setTelefono(rs.getObject("Telefono").toString());
+        return auxCliente;       
+        } catch (SQLException | NumberFormatException e) {
+        return null;
+        }
+    }
+        
     public DefaultTableModel buscarClientebyNombreCompleto(String nombrecompleto){
-        Connection con=new Conexion().getConnection();
+        Connection con=new Conexion().conectar();
         String sql="Select * from listaClientes where Nombre like '"+nombrecompleto+"%'";
         DefaultTableModel modelo=new DefaultTableModel();
         try {
@@ -127,32 +148,10 @@ public class ClienteDAO{
             return null;
         }
     }
-    
-    public Cliente buscarClientebyId(int id) throws SQLException{
-        Connection con=new Conexion().getConnection();
-        String sql="select * from cliente where idcliente="+id;
-        try{
-        Statement stm= con.createStatement();
-        ResultSet rs=stm.executeQuery(sql);
-        rs.next();
-        Cliente auxCliente=new Cliente();
-        auxCliente.setIdcliente(Integer.parseInt(rs.getObject("idcliente").toString()));
-        auxCliente.setTipodocumento(rs.getObject("TipoDocumento").toString());
-        auxCliente.setNumeroDocumento(rs.getObject("NumeroDocumento").toString());
-        auxCliente.setNombreCompleto(rs.getObject("NombreCompleto").toString());
-        auxCliente.setNombres(rs.getObject("Nombres").toString());
-        auxCliente.setApellidoPaterno(rs.getObject("ApellidoPaterno").toString());
-        auxCliente.setApellidoMaterno(rs.getObject("ApellidoMaterno").toString());
-        auxCliente.setDireccion(rs.getObject("Direccion").toString());
-        auxCliente.setTelefono(rs.getObject("Telefono").toString());
-        return auxCliente;       
-        } catch (SQLException | NumberFormatException e) {
-        return null;
-        }
-    }
-    
+        
     public boolean UpdateCliente(Cliente objCliente,Usuario objUser){
-        String parametros="('"+objCliente.getTipodocumento()+"','"+
+        String parametros="('"+objCliente.getIdcliente()+","+
+                objCliente.getTipodocumento()+"','"+
                objCliente.getNumeroDocumento()+"','"+
                objCliente.getNombreCompleto()+"','"+
                objCliente.getNombres()+"','"+
@@ -162,17 +161,16 @@ public class ClienteDAO{
                objCliente.getTelefono()+"',"+
                objUser.getId()+");";
         try {
-            Connection con=new Conexion().getConnection();
-            System.out.println("SPInsert:  call InsertCliente"+parametros);
-            CallableStatement cs = con.prepareCall("call InsertCliente"+parametros);
-            cs.executeQuery();
-            
+            Connection con=objConexion.conectar();
+            try (CallableStatement cs = con.prepareCall("call UpdateCliente"+parametros)) {
+                cs.executeQuery();
+            }
+            objConexion.desconectar();
             return true;           
         } catch (Exception e) {
             System.out.println(e.toString());
             return false;
         }
-        
     }
 
 

@@ -47,7 +47,7 @@ public class UsuarioDAO{
     public Object[][] select (String tabla,String campos,String valores){
         int registros=0;
         Conexion conectar=new Conexion();
-        Connection con=conectar.getConnection();
+        Connection con=conectar.conectar();
         String colname[]=campos.split(",");
         //consulta
         String q="Select "+campos+" from " + tabla;

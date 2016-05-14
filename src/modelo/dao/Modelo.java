@@ -5,7 +5,6 @@
 package modelo.dao;
 
 
-import com.sun.media.sound.DLSModulator;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,7 +26,6 @@ import modelo.vo.Producto;
 import modelo.vo.Proveedor;
 import modelo.vo.Usuario;
 import modelo.vo.VariablesGlobales;
-import org.codehaus.groovy.ast.ClassNode;
 /**
  *
  * @author Abelson
@@ -48,7 +46,7 @@ public class Modelo{
     public ClienteDAO DAOCliente=new ClienteDAO();
     public ProveedorDAO DAOProveedor=new ProveedorDAO();
 
-  
+ /* 
     public boolean ValidarUsuario(String usuario,String password){
         this.user=DAOUsuario.validarUsuario(usuario, password);
         if (user == null){
@@ -59,7 +57,7 @@ public class Modelo{
         }
             
     }
-/*
+
     public void llenarVariablesGlobales(){
         Object[][] res =this.select("variablesglobales", " variable , tipodato , valor ", null);
         if(res.length>0){
@@ -73,22 +71,12 @@ public class Modelo{
     }
     */
     //Formulario Cliente
-    public DefaultTableModel llamarClientes(){
-        return DAOCliente.llamarVistaClientes();
-    }
-    
+
     public DefaultTableModel buscarCliente(String nombre){
         return this.DAOCliente.buscarClientebyNombreCompleto(nombre);       
     }
     
-    public Cliente buscarClienteId(int id) throws SQLException {
-        this.objCliente=this.DAOCliente.buscarClientebyId(id);
-        if(this.objCliente== null){
-            return null;
-        }else{
-            return this.objCliente;
-        }   
-    }
+
     
     public boolean registrarCliente(Cliente objCliente ){
        if (objCliente!= null){
@@ -113,7 +101,7 @@ public class Modelo{
             return false;
         }
     }
-    
+    /*
     public Proveedor buscarProveedorId(int id) {
         this.objProveedor=this.DAOProveedor.buscarProveedorbyId(id);
         if(this.objProveedor == null){
@@ -311,5 +299,5 @@ public class Modelo{
    public void Rep_ImprimirFactura(int comprobante,int serie,int tipo){
        this.IR_ImprimirFactura(comprobante, serie, tipo);
    }
-    
+ */   
 }

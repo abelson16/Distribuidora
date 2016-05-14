@@ -25,7 +25,7 @@ public class ProveedorDAO{
     }
     
     public DefaultTableModel llamarVistaProveedores(){
-        Connection con=new Conexion().getConnection();
+        Connection con=new Conexion().conectar();
         String sql="Select * from listaproveedores; ";
         DefaultTableModel modelo=new DefaultTableModel();
         try {
@@ -62,7 +62,7 @@ public class ProveedorDAO{
                objProveedor.getCelular2()+"',"+
                objUser.getId()+");";
         try {
-            Connection con=new Conexion().getConnection();
+            Connection con=new Conexion().conectar();
             System.out.println("SPInsert:  call InsertCliente"+parametros);
             CallableStatement cs = con.prepareCall("call InsertProveedor"+parametros);
             cs.executeQuery();
@@ -73,9 +73,9 @@ public class ProveedorDAO{
             return false;
         } 
     }
-    
+    /*
     public Proveedor buscarProveedorbyId(int id){
-        Connection con=new Conexion().getConnection();
+        Connection con=new Conexion().conectar();
         String sql="select * from proveedore where idproveedor="+id;
         try{
         Statement stm= con.createStatement();
@@ -84,9 +84,9 @@ public class ProveedorDAO{
         Proveedor auxProveedor=new Proveedor();
         auxProveedor.setIdProveedor(Integer.parseInt(rs.getObject("idProveedor").toString()));
         auxProveedor.set(rs.getObject("TipoDocumento").toString());
-        auxCliente.setNumeroDocumento(rs.getObject("NumeroDocumento").toString());
-        auxCliente.setNombreCompleto(rs.getObject("NombreCompleto").toString());
-        auxCliente.setNombres(rs.getObject("Nombres").toString());
+        auxProveedor.setNumeroDocumento(rs.getObject("NumeroDocumento").toString());
+        auxProveedor.setNombreCompleto(rs.getObject("NombreCompleto").toString());
+        auxProveedor.setNombres(rs.getObject("Nombres").toString());
         auxCliente.setApellidoPaterno(rs.getObject("ApellidoPaterno").toString());
         auxCliente.setApellidoMaterno(rs.getObject("ApellidoMaterno").toString());
         auxCliente.setDireccion(rs.getObject("Direccion").toString());
@@ -96,5 +96,6 @@ public class ProveedorDAO{
         return null;
         }
     }
+    */
     
 }

@@ -55,7 +55,11 @@ public class ControladorCliente {
     }
 
     public Cliente BuscarClientePorId(int id) {
-        
+        return this.modelo.buscarClientebyId(id);
+    }
+
+    public boolean ActualiarCliente(Cliente auxcliente) {
+        return this.modelo.UpdateCliente(auxcliente,this.objUsuario);
     }
 
     

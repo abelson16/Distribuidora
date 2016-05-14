@@ -37,5 +37,11 @@ public class ControladorPrincipal {
         controlador.CargarClientes(vista);
         
     }
+
+    
+    
+    public void LlamarMantenimientoProveedor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

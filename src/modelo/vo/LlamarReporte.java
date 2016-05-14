@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
 package modelo.vo;
 
 import java.sql.Connection;
@@ -15,12 +16,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
-
+*/
 
 /**
  *
  * @author Abelson
- */
+*/
+/*
 public class LlamarReporte{
        
     public LlamarReporte(){
@@ -50,7 +52,8 @@ public class LlamarReporte{
     }
         
         
-        
+ 
 
     
 }
+*/

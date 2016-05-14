@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.vo.Cliente;
-import org.apache.commons.beanutils.Converter;
 
 /**
  *
@@ -114,7 +113,7 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
             .addGap(0, 6, Short.MAX_VALUE)
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 51, 255)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 51, 255))); // NOI18N
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -141,6 +140,11 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
         });
 
         btActualizarCliente.setText("Actualizar");
+        btActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btActualizarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -295,7 +299,7 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Busqueda de Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 102, 204)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Busqueda de Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 204))); // NOI18N
 
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -391,20 +395,27 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAgregarClienteActionPerformed
 
     private void tfBuscarClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarClienteKeyTyped
-        this.controler.BuscarCliente(tfBuscarCliente.getText());
+        //this.controler.BuscarCliente(tfBuscarCliente.getText());
     }//GEN-LAST:event_tfBuscarClienteKeyTyped
 
     private void btEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarClienteActionPerformed
         int id=(int) tbClientes.getValueAt(tbClientes.getSelectedRow(), 0);
         JOptionPane.showMessageDialog(rootPane, id);
-        try {
-            this.controler.BuscarClientePorId(id);
-        } catch (SQLException ex) {
-            Logger.getLogger(Jf_Mant_Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        Cliente auxCliente= this.controler.BuscarClientePorId(id);
+        if (auxCliente != null){
+            tfIdCliente.setText(String.valueOf(auxCliente.getIdcliente()));
+            cbTipoDocumento.setSelectedItem(auxCliente.getTipodocumento());
+            tfNumeroDocumento.setText(auxCliente.getNumeroDocumento());
+            tfNombres.setText(auxCliente.getNombres());
+            tfApellidoPaterno.setText(auxCliente.getApellidoPaterno());
+            tfApellidoMaterno.setText(auxCliente.getApellidoMaterno());
+            tfDireccion.setText(auxCliente.getDireccion());
+            tfTelefono.setText(auxCliente.getTelefono());
         }
-       
-        
-        
+        else{
+            JOptionPane.showMessageDialog(rootPane, "No se encontro el cliente", "Error busqueda",JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btEditarClienteActionPerformed
 
     private void btNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoClienteActionPerformed
@@ -418,6 +429,26 @@ public class Jf_Mant_Clientes extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btNuevoClienteActionPerformed
+
+    private void btActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarClienteActionPerformed
+        Cliente auxcliente=new Cliente();
+        auxcliente.setIdcliente(Integer.parseInt(tfIdCliente.getText()));
+        auxcliente.setTipodocumento(cbTipoDocumento.getSelectedItem().toString());
+        auxcliente.setNumeroDocumento(tfNumeroDocumento.getText());
+        auxcliente.setNombres(tfNombres.getText());
+        auxcliente.setApellidoPaterno(tfApellidoPaterno.getText());
+        auxcliente.setApellidoMaterno(tfApellidoMaterno.getText());
+        auxcliente.setNombreCompleto();
+        auxcliente.setDireccion(tfDireccion.getText());
+        auxcliente.setTelefono(tfTelefono.getText());
+        if (this.controler.ActualiarCliente(auxcliente)){
+            JOptionPane.showMessageDialog(rootPane, "Se actualizo correctamente el cliente");
+            this.controler.listarClientes();
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Error al actualizar el cliente");
+        }
+    }//GEN-LAST:event_btActualizarClienteActionPerformed
     
     public void setControler(ControladorCliente controler){
         this.controler=controler;

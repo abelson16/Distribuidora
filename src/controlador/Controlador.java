@@ -36,7 +36,7 @@ import vista.*;
  *
  * @author Abelson
  */
-public class Controlador implements ActionListener{
+public class Controlador {
     Login view;
     Modelo model;
     
@@ -80,6 +80,7 @@ public class Controlador implements ActionListener{
    */
    //--- //Principal[FPri]
    //Menu Mantenimiento 
+   /*
    public void LlamarMantenimientoCliente(){
        this.vtnMantenimientoCliente=new Jf_Mant_Clientes();
        this.vtnMantenimientoCliente.setControler(this);
@@ -91,6 +92,7 @@ public class Controlador implements ActionListener{
        this.vtnPrincipal.pnPrincipal.add(this.vtnMantenimientoCliente);
        this.vtnMantenimientoCliente.show();
    }
+   */
    public  void  LlamarMantenimientoProveedor(){
        this.vtnMantenimientoProveedor=new Jf_Mant_Proveedor();
        this.vtnMantenimientoProveedor.setControler(this);
@@ -108,34 +110,8 @@ public class Controlador implements ActionListener{
    public void BuscarCliente(String nombre){
        this.vtnMantenimientoCliente.tbClientes.setModel(this.model.buscarCliente(nombre));
    }
-   public void AgregarCliente(){
-           Cliente auxCliente=new Cliente();
-           auxCliente.setTipodocumento((String)this.vtnMantenimientoCliente.cbTipoDocumento.getSelectedItem());
-           auxCliente.setNumeroDocumento(this.vtnMantenimientoCliente.tfNumeroDocumento.getText());
-           auxCliente.setNombres(this.vtnMantenimientoCliente.tfNombres.getText());
-           auxCliente.setApellidoPaterno(this.vtnMantenimientoCliente.tfApellidoPaterno.getText());
-           auxCliente.setApellidoMaterno(this.vtnMantenimientoCliente.tfApellidoMaterno.getText());
-           auxCliente.concatenarNombreCompleto();
-           auxCliente.setDireccion(this.vtnMantenimientoCliente.tfDireccion.getText());
-           auxCliente.setTelefono(this.vtnMantenimientoCliente.tfTelefono.getText());
-           if (this.model.registrarCliente(auxCliente)){
-               JOptionPane.showMessageDialog(vtnMantenimientoCliente, "Se ingreso correctamente en cliente");
-               vtnMantenimientoCliente.tbClientes.setModel(this.model.llamarClientes());
-           }else{
-               JOptionPane.showMessageDialog(vtnMantenimientoCliente, "Error al ingresar el cliente", "Ingreso de Clientes ",JOptionPane.ERROR_MESSAGE);
-           }
-       }
-   public void BuscarClientePorId(int id) throws SQLException{
-       Cliente auxCliente=this.model.buscarClienteId(id);
-       this.vtnMantenimientoCliente.cbTipoDocumento.setSelectedItem(auxCliente.getTipodocumento());
-       this.vtnMantenimientoCliente.tfNumeroDocumento.setText(auxCliente.getNumeroDocumento());
-       this.vtnMantenimientoCliente.tfNombres.setText(auxCliente.getNombres());
-       this.vtnMantenimientoCliente.tfApellidoPaterno.setText(auxCliente.getApellidoPaterno());
-       this.vtnMantenimientoCliente.tfApellidoMaterno.setText(auxCliente.getApellidoMaterno());
-       
-       this.vtnMantenimientoCliente.tfDireccion.setText(auxCliente.getDireccion());
-       this.vtnMantenimientoCliente.tfTelefono.setText(auxCliente.getTelefono());               
-   }
+   
+   
    
    //--- //Proveedor[FPRO]
    public void AgregarProveedor(){
@@ -152,10 +128,10 @@ public class Controlador implements ActionListener{
            JOptionPane.showMessageDialog(vtnMantenimientoProveedor, "Error al ingresar el Proveedor","Ingreso de Proveedores", JOptionPane.ERROR_MESSAGE);
        }
    }
-   
+   /*
    public void BuscarProveedorPorId(int id){
        Proveedor auxProveedor=this.model.buscarProveedorId(id);
-       this.vtnMantenimientoProveedor
+       this.vtnMantenimientoProveedor.show();
        
    }
    
@@ -311,10 +287,7 @@ public class Controlador implements ActionListener{
            auxVendedor.setNombrecompleto(objSeleccionado.getNombre());
            model.objComprobante.setObjVendedor(auxVendedor);
        }
-       //--Buscar cliente
-       else if (opcion.equals("BuscarCliente")){
-           abrirMostrarclientes();
-       }
+
        //--Buscar Producto
        else if (opcion.equals("BuscarProducto")){
            abrirMostrarProductos();
@@ -334,7 +307,7 @@ public class Controlador implements ActionListener{
        }
        //BuscarCliente[FBUS]
        else if (opcion.equals("AgregarCliente")){
-           Cliente auxcliente=new Cliente(Integer.valueOf((String) vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 0)),
+           /*Cliente auxcliente=new Cliente(Integer.valueOf((String) vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 0)),
                    String.valueOf(vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 3)),
                    String.valueOf( vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 2)),
                    String.valueOf(vtnMostrarClientes.tbClientes.getValueAt(vtnMostrarClientes.tbClientes.getSelectedRow(), 4)));
@@ -394,7 +367,7 @@ public class Controlador implements ActionListener{
         } catch (Exception e) {  
         }
     }
-
+/*
     private void abrirFacturacion(int tipocomprobante) {
         vtnFacturacion=new Facturacion();
         this.model.NuevoCombronate();
@@ -442,38 +415,16 @@ public class Controlador implements ActionListener{
         this.vtnFacturacion.setResizable(true);
         
         this.vtnPrincipal.pnPrincipal.add(vtnFacturacion);
-        /*
+        
         DefaultComboBoxModel cbClienteModelo= (DefaultComboBoxModel)this.vtnFacturacion.cbCliente.getModel();
         ArrayList<ItemComboBox> lista= this.model.itemCombobox("cliente","idcliente , nombre ");
         for (int i = 0; i < lista.size(); i++) {
             cbClienteModelo.addElement(lista.get(i));
         }
         
-        */
+        
         this.vtnFacturacion.setVisible(true);
         //this.vtnFacturacion.show();
-    }
-    
-    private void abrirMostrarclientes(){
-        vtnMostrarClientes=new MostrarClientes();
-        Object[][] datos = this.model.GetClientes();
-        
-        DefaultTableModel tbModelo= (DefaultTableModel) vtnMostrarClientes.tbClientes.getModel();
-        System.out.println(tbModelo.getRowCount());
-        int numero=tbModelo.getRowCount()-1;
-        for(int b=numero;b>=0;b--){
-            System.out.println(b);
-            tbModelo.removeRow(b);
-        }
-        
-        if(!(datos == null)){
-        for(int i=0;i<datos.length;i++){
-            tbModelo.addRow(datos[i]);            
-        }
-        }
-        vtnMostrarClientes.btAgregar.addActionListener(this);
-        vtnMostrarClientes.toFront();
-        vtnMostrarClientes.setVisible(true);
     }
     
     private void abrirMostrarProductos(){
@@ -576,7 +527,7 @@ public class Controlador implements ActionListener{
     }
 
    
-
+*/
    
 
     

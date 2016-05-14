@@ -274,7 +274,7 @@ public class Jf_Mant_Proveedor extends javax.swing.JInternalFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         int id=(int) tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
-        this.controler.BuscarProveedorPorId(id);
+        //this.controler.BuscarProveedorPorId(id);
         
     }//GEN-LAST:event_btEditarActionPerformed
 public void setControler(Controlador controler){
